@@ -12,30 +12,30 @@ on:
       - 'marten/**'
 
 jobs:
-validation:
-    runs-on: ubuntu-latest
-    name: Integrity checks
-    steps:
-      - uses: actions/checkout@v1
+  validation:
+      runs-on: ubuntu-latest
+      name: Integrity checks
+      steps:
+        - uses: actions/checkout@v1
 
-      - name: Validate PKGBUILD
-        id: validate-pkgbuild
-        uses: 2m/arch-pkgbuild-builder@v1.16
-        with:
-          target: 'pkgbuild'
-          pkgname: 'marten'
+        - name: Validate PKGBUILD
+          id: validate-pkgbuild
+          uses: 2m/arch-pkgbuild-builder@v1.16
+          with:
+            target: 'pkgbuild'
+            pkgname: 'marten'
 
-      - name: Validate SRCINFO
-        id: validate-srcinfo
-        uses: 2m/arch-pkgbuild-builder@v1.16
-        with:
-          target: 'srcinfo'
-          pkgname: 'marten'
+        - name: Validate SRCINFO
+          id: validate-srcinfo
+          uses: 2m/arch-pkgbuild-builder@v1.16
+          with:
+            target: 'srcinfo'
+            pkgname: 'marten'
 
-      - name: Validate binary
-        id: validate-binary
-        uses: 2m/arch-pkgbuild-builder@v1.16
-        with:
-          target: 'run'
-          pkgname: 'marten'
-          command: 'marten -v'
+        - name: Validate binary
+          id: validate-binary
+          uses: 2m/arch-pkgbuild-builder@v1.16
+          with:
+            target: 'run'
+            pkgname: 'marten'
+            command: 'marten -v'
