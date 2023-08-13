@@ -1,0 +1,41 @@
+name: Marten package validation
+
+on:
+  push:
+    paths:
+      - 'marten/**'
+  pull_request:
+    paths: 
+      - 'marten/**'
+  workflow_dispatch:
+    paths:
+      - 'marten/**'
+
+jobs:
+validation:
+    runs-on: ubuntu-latest
+    name: Integrity checks
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Validate PKGBUILD
+        id: validate-pkgbuild
+        uses: 2m/arch-pkgbuild-builder@v1.16
+        with:
+          target: 'pkgbuild'
+          pkgname: 'marten'
+
+      - name: Validate SRCINFO
+        id: validate-srcinfo
+        uses: 2m/arch-pkgbuild-builder@v1.16
+        with:
+          target: 'srcinfo'
+          pkgname: 'marten'
+
+      - name: Validate binary
+        id: validate-binary
+        uses: 2m/arch-pkgbuild-builder@v1.16
+        with:
+          target: 'run'
+          pkgname: 'marten'
+          command: 'marten -v'
