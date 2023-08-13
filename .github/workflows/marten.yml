@@ -5,7 +5,7 @@ on:
     paths:
       - 'marten/**'
   pull_request:
-    paths: 
+    paths:
       - 'marten/**'
   workflow_dispatch:
     paths:
