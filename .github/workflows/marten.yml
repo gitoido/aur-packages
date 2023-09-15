@@ -7,9 +7,6 @@ on:
   pull_request:
     paths:
       - 'marten/**'
-  workflow_dispatch:
-    paths:
-      - 'marten/**'
 
 jobs:
   validation:
