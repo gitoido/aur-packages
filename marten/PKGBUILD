@@ -15,10 +15,7 @@ provides=('marten')
 build() {
   cd "marten-${pkgver}"
 
-  # Install dependencies
   PATH="/usr/bin" shards install
-
-  # Build marten cli
   PATH="/usr/bin" crystal build src/marten_cli.cr -o bin/${pkgname} --progress --release --no-debug
 }
 
