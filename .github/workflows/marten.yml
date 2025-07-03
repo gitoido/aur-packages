@@ -1,4 +1,4 @@
-name: Marten package validation
+name: Marten package
 
 on:
   push:
@@ -13,41 +13,46 @@ on:
 
 jobs:
   validation:
-      runs-on: ubuntu-latest
-      name: Integrity checks
-      steps:
-        - uses: actions/checkout@v1
+    runs-on: ubuntu-latest
+    name: Integrity checks
+    steps:
+      - uses: actions/checkout@v4
 
-        - name: Validate PKGBUILD
-          id: validate-pkgbuild
-          uses: 2m/arch-pkgbuild-builder@v1.16
-          with:
-            target: 'pkgbuild'
-            pkgname: 'marten'
+      - name: Validate PKGBUILD
+        id: validate-pkgbuild
+        uses: 2m/arch-pkgbuild-builder@v1.16
+        with:
+          target: 'pkgbuild'
+          pkgname: 'marten'
 
-        - name: Validate SRCINFO
-          id: validate-srcinfo
-          uses: 2m/arch-pkgbuild-builder@v1.16
-          with:
-            target: 'srcinfo'
-            pkgname: 'marten'
+      - name: Validate SRCINFO
+        id: validate-srcinfo
+        uses: 2m/arch-pkgbuild-builder@v1.16
+        with:
+          target: 'srcinfo'
+          pkgname: 'marten'
 
-        - name: Validate binary
-          id: validate-binary
-          uses: 2m/arch-pkgbuild-builder@v1.16
-          with:
-            target: 'run'
-            pkgname: 'marten'
-            command: 'marten -v'
+      - name: Validate binary
+        id: validate-binary
+        uses: 2m/arch-pkgbuild-builder@v1.16
+        with:
+          target: 'run'
+          pkgname: 'marten'
+          command: 'marten -v'
 
-        - name: Publish AUR package
-          uses: KSXGitHub/github-actions-deploy-aur@v4.1.1
-          with:
-            pkgname: marten
-            pkgbuild: ./marten/PKGBUILD
-            assets: ./marten/.SRCINFO
-            commit_username: ${{ secrets.AUR_USERNAME }}
-            commit_email: ${{ secrets.AUR_EMAIL }}
-            ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
-            commit_message: Update AUR package
-            ssh_keyscan_types: rsa,ecdsa,ed25519
+  publish:
+    runs-on: ubuntu-latest
+    name: AUR release
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish AUR package
+        uses: KSXGitHub/github-actions-deploy-aur@v4.1.1
+        with:
+          pkgname: marten
+          pkgbuild: ./marten/PKGBUILD
+          assets: ./marten/.SRCINFO
+          commit_username: ${{ secrets.AUR_USERNAME }}
+          commit_email: ${{ secrets.AUR_EMAIL }}
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          commit_message: Update AUR package
+          ssh_keyscan_types: rsa,ecdsa,ed25519
