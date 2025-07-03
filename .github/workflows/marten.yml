@@ -41,6 +41,7 @@ jobs:
           command: 'marten -v'
 
   publish:
+    needs: validation
     runs-on: ubuntu-latest
     name: AUR release
     steps:
