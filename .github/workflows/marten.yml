@@ -40,7 +40,7 @@ jobs:
             command: 'marten -v'
 
         - name: Publish AUR package
-          uses: KSXGitHub/github-actions-deploy-aur@v4
+          uses: KSXGitHub/github-actions-deploy-aur@v4.1.1
           with:
             pkgname: marten
             pkgbuild: ./marten/PKGBUILD
