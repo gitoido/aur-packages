@@ -6,9 +6,6 @@ on:
       - 'marten/**'
     branches:
       - 'main'
-  pull_request:
-    paths:
-      - 'marten/**'
   workflow_dispatch: ~
 
 jobs:
